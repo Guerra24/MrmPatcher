@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="MrmPatcher.Native/MrmPatcher.Native.vcxproj" Id="c84e539a-8d73-42d9-9f70-e50b442505e0" />
+  <Project Path="MrmPatcher/MrmPatcher.csproj" />
+</Solution>

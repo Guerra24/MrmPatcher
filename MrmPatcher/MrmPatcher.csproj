@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAotCompatible>true</IsAotCompatible>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup>
+	<Title>MrmPatcher</Title>
+	<Version>0.0.1</Version>
+	<Authors>Guerra24</Authors>
+	<PackageId>MrmPatcher</PackageId>
+	<PackageProjectUrl>https://github.com/Guerra24/MrmPatcher</PackageProjectUrl>
+	<PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/Guerra24/MrmPatcher</RepositoryUrl>
+	<IncludeSymbols>True</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="buildTransitive\MrmPatcher.targets" Pack="true" PackagePath="buildTransitive\MrmPatcher.targets" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="static-lib/win-x64/detours.lib" Pack="true" PackagePath="static-lib/win-x64/detours.lib" />
+    <None Include="static-lib/win-x64/MrmPatcher.lib" Pack="true" PackagePath="static-lib/win-x64/MrmPatcher.lib" />
+    <None Include="static-lib/win-arm64/detours.lib" Pack="true" PackagePath="static-lib/win-arm64/detours.lib" />
+    <None Include="static-lib/win-arm64/MrmPatcher.lib" Pack="true" PackagePath="static-lib/win-arm64/MrmPatcher.lib" />
+  </ItemGroup>
+
+</Project>

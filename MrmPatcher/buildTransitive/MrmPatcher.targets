@@ -1,0 +1,8 @@
+﻿<Project>
+  <ItemGroup>
+    <DirectPInvoke Include="MrmPatcher" />
+    <NativeLibrary Include="MrmPatcher.lib" />
+    <NativeLibrary Include="detours.lib" />
+    <LinkerArg Include='/LIBPATH:"$(MSBuildThisFileDirectory)..\static-lib\$(RuntimeIdentifier)"' />
+  </ItemGroup>
+</Project>
