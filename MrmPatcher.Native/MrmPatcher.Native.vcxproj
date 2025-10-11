@@ -96,23 +96,23 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)MrmPatcher\static-lib\win-$(Platform)\</OutDir>
+    <OutDir>$(MSBuildProjectDirectory)\..\MrmPatcher\static-lib\win-$(Platform)\</OutDir>
     <IntDir>bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>MrmPatcher</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)MrmPatcher\static-lib\win-$(Platform)\</OutDir>
+    <OutDir>$(MSBuildProjectDirectory)\..\MrmPatcher\static-lib\win-$(Platform)\</OutDir>
     <IntDir>bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>MrmPatcher</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <IntDir>bin\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)MrmPatcher\static-lib\win-$(Platform)\</OutDir>
+    <OutDir>$(MSBuildProjectDirectory)\..\MrmPatcher\static-lib\win-$(Platform)\</OutDir>
     <TargetName>MrmPatcher</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <IntDir>bin\$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)MrmPatcher\static-lib\win-$(Platform)\</OutDir>
+    <OutDir>$(MSBuildProjectDirectory)\..\MrmPatcher\static-lib\win-$(Platform)\</OutDir>
     <TargetName>MrmPatcher</TargetName>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">

@@ -6,21 +6,24 @@
     <Nullable>enable</Nullable>
     <IsAotCompatible>true</IsAotCompatible>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Platforms>AnyCPU</Platforms>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <PropertyGroup>
-	<Title>MrmPatcher</Title>
-	<Version>0.0.1</Version>
-	<Authors>Guerra24</Authors>
-	<PackageId>MrmPatcher</PackageId>
-	<PackageProjectUrl>https://github.com/Guerra24/MrmPatcher</PackageProjectUrl>
-	<PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-	<RepositoryUrl>https://github.com/Guerra24/MrmPatcher</RepositoryUrl>
-	<IncludeSymbols>True</IncludeSymbols>
-	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Title>MrmPatcher</Title>
+    <Authors>Guerra24</Authors>
+    <PackageId>MrmPatcher</PackageId>
+    <PackageProjectUrl>https://github.com/Guerra24/MrmPatcher</PackageProjectUrl>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Guerra24/MrmPatcher</RepositoryUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" PrivateAssets="All" Version="2.3.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="buildTransitive\MrmPatcher.targets" Pack="true" PackagePath="buildTransitive\MrmPatcher.targets" />

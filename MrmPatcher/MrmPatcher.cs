@@ -28,7 +28,7 @@ public class MrmPatcher : IDisposable
     public MrmPatcher(Stream stream)
     {
         var data = new byte[stream.Length];
-        stream.Read(data);
+        stream.ReadExactly(data);
         MrmPatcherMethods.PatchMrm(data, data.Length);
     }
 

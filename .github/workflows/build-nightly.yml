@@ -13,19 +13,25 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
     - name: Prepare Env
       uses: microsoft/setup-msbuild@v2
+    - name: Setup vcpkg
+      uses: lukka/run-vcpkg@v11
     - name: Build native
       run: |
-        MSBuild MrmPatcher.Native\MrmPatcher.Native.vcxproj /p:Configuration=Release /p:Platform=x64
-        MSBuild MrmPatcher.Native\MrmPatcher.Native.vcxproj /p:Configuration=Release /p:Platform=ARM64
+        vcpkg integrate install
+        MSBuild -nologo -v:minimal MrmPatcher.Native\MrmPatcher.Native.vcxproj /p:Configuration=Release /p:Platform=x64
+        MSBuild -nologo -v:minimal MrmPatcher.Native\MrmPatcher.Native.vcxproj /p:Configuration=Release /p:Platform=ARM64
     - name: Publish nuget
       run: |
-        dotnet pack --configuration Release -p:ContinuousIntegrationBuild=true -p:Deterministic=true
+        dotnet pack MrmPatcher\MrmPatcher.csproj --configuration Release -p:ContinuousIntegrationBuild=true -p:Deterministic=true
     - name: Upload nuget
       uses: actions/upload-artifact@v4
       with:
