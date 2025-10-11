@@ -17,15 +17,15 @@ internal static partial class MrmPatcherMethods
     public static partial void UnpatchMrm();
 }
 
-public class MrmPatcher : IDisposable
+public class MrmPatcherHelper : IDisposable
 {
 
-    public MrmPatcher(byte[] data, long length)
+    public MrmPatcherHelper(byte[] data, long length)
     {
         MrmPatcherMethods.PatchMrm(data, length);
     }
 
-    public MrmPatcher(Stream stream)
+    public MrmPatcherHelper(Stream stream)
     {
         var data = new byte[stream.Length];
         stream.ReadExactly(data);
