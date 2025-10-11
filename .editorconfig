@@ -1,0 +1,14 @@
+[*.csproj]
+indent_style = space
+tab_width = 2
+indent_size = 2
+
+[*.targets]
+indent_style = space
+tab_width = 2
+indent_size = 2
+
+[*.props]
+indent_style = space
+tab_width = 2
+indent_size = 2

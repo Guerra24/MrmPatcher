@@ -89,7 +89,8 @@ extern "C" void __declspec(dllexport) PatchMrm(BYTE* data, long length)
 #endif
 	_priSize = length;
 	_priData = malloc(length);
-	memcpy(_priData, data, length);
+	if (_priData)
+		memcpy(_priData, data, length);
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());

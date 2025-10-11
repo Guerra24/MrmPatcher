@@ -4,6 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace MrmPatcher;
@@ -20,20 +21,28 @@ internal static partial class MrmPatcherMethods
 public class MrmPatcherHelper : IDisposable
 {
 
-    public MrmPatcherHelper(byte[] data, long length)
+    [FeatureSwitchDefinition("MrmPatcher.IsEnabled")]
+    private static bool IsEnabled => AppContext.TryGetSwitch("MrmPatcher.IsEnabled", out bool isEnabled) && isEnabled;
+
+    public MrmPatcherHelper(byte[] data)
     {
-        MrmPatcherMethods.PatchMrm(data, length);
+        if (IsEnabled)
+            MrmPatcherMethods.PatchMrm(data, data.LongLength);
     }
 
     public MrmPatcherHelper(Stream stream)
     {
-        var data = new byte[stream.Length];
-        stream.ReadExactly(data);
-        MrmPatcherMethods.PatchMrm(data, data.Length);
+        if (IsEnabled)
+        {
+            var data = new byte[stream.Length];
+            stream.ReadExactly(data);
+            MrmPatcherMethods.PatchMrm(data, data.Length);
+        }
     }
 
     public void Dispose()
     {
-        MrmPatcherMethods.UnpatchMrm();
+        if (IsEnabled)
+            MrmPatcherMethods.UnpatchMrm();
     }
 }

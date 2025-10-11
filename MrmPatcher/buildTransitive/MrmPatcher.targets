@@ -1,8 +1,19 @@
 ﻿<Project>
+
+  <PropertyGroup>
+    <MrmPatcherEnabled>false</MrmPatcherEnabled>
+    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true'">true</MrmPatcherEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="MrmPatcher.IsEnabled" Value="$(MrmPatcherEnabled)" Trim="true" />
+  </ItemGroup>
+
   <ItemGroup>
     <DirectPInvoke Include="MrmPatcher" />
     <NativeLibrary Include="MrmPatcher.lib" />
     <NativeLibrary Include="detours.lib" />
     <LinkerArg Include='/LIBPATH:"$(MSBuildThisFileDirectory)..\static-lib\$(RuntimeIdentifier)"' />
   </ItemGroup>
+
 </Project>
