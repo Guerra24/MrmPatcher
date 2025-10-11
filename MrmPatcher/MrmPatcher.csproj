@@ -32,8 +32,10 @@
   <ItemGroup>
     <None Include="static-lib/win-x64/detours.lib" Pack="true" PackagePath="static-lib/win-x64/detours.lib" />
     <None Include="static-lib/win-x64/MrmPatcher.lib" Pack="true" PackagePath="static-lib/win-x64/MrmPatcher.lib" />
+    <None Include="static-lib/win-x64/MrmPatcher.pdb" Pack="true" PackagePath="static-lib/win-x64/MrmPatcher.pdb" />
     <None Include="static-lib/win-arm64/detours.lib" Pack="true" PackagePath="static-lib/win-arm64/detours.lib" />
     <None Include="static-lib/win-arm64/MrmPatcher.lib" Pack="true" PackagePath="static-lib/win-arm64/MrmPatcher.lib" />
+    <None Include="static-lib/win-arm64/MrmPatcher.pdb" Pack="true" PackagePath="static-lib/win-arm64/MrmPatcher.pdb" />
   </ItemGroup>
 
 </Project>
