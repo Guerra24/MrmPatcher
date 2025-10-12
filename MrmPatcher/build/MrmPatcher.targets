@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <MrmPatcherEnabled>false</MrmPatcherEnabled>
-    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true'">true</MrmPatcherEnabled>
+    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and ('$(_IsPublishing)' != '' or '$(PublishProtocol)' != '') and '$(PublishAot)' == 'true'">true</MrmPatcherEnabled>
     <MrmPatcherEmbedPri Condition="'$(MrmPatcherEmbedPri)' == ''">false</MrmPatcherEmbedPri>
   </PropertyGroup>
 
@@ -10,7 +10,7 @@
     <RuntimeHostConfigurationOption Include="MrmPatcher.IsEnabled" Value="$(MrmPatcherEnabled)" Trim="true" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(MrmPatcherEnabled)' == 'true'">
     <DirectPInvoke Include="MrmPatcher" />
     <NativeLibrary Include="MrmPatcher.lib" />
     <NativeLibrary Include="detours.lib" />
@@ -18,8 +18,9 @@
   </ItemGroup>
 
   <Target Name="_EmbedPriIntoDll" BeforeTargets="BeforeResGen" Condition="'$(MrmPatcherEnabled)' == 'true' and '$(MrmPatcherEmbedPri)' == 'true'" >
+    <MSBuild Projects="$(ProjectPath)" Targets="GenerateProjectPriFile" Properties="AppxGeneratePriEnabled=true" />
     <ItemGroup>
-      <EmbeddedResource Include="$(ProjectPriFullPath)" Type="Non-Resx" WithCulture="false" />
+      <EmbeddedResource Include="$(ProjectPriFullPath)" Type="Non-Resx" WithCulture="false" Condition="Exists('$(ProjectPriFullPath)')" />
     </ItemGroup>
   </Target>
 
