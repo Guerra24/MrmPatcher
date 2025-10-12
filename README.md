@@ -4,7 +4,7 @@
 
 Based on the [SingleExeXamlIsland](https://github.com/ysc3839/SingleExeXamlIsland) project but instead for C# Native AOT.
 
-This nuget allows publishing unpackaged UWP Xaml Island apps fully self-contained without additional files. 
+This nuget allows publishing unpackaged UWP Xaml Islands apps fully self-contained without additional files.
 
 Simply wrap any calls to `WindowsXamlManager.InitializeForCurrentThread()` with `MrmPatcherHelper` and pass the content of `resources.pri`.
 

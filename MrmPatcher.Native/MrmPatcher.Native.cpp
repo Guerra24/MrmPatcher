@@ -109,6 +109,7 @@ extern "C" void __declspec(dllexport) UnpatchMrm()
 	DetourDetach(&(PVOID&)RealGetFileAttributesExW, MyGetFileAttributesExW);
 	DetourDetach(&(PVOID&)RealCreateFileW, MyCreateFileW);
 	DetourTransactionCommit();
-	free(_priData);
+	if (_priData)
+		free(_priData);
 	_priData = nullptr;
 }

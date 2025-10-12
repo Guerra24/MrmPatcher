@@ -5,6 +5,7 @@
  */
 
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace MrmPatcher;
@@ -23,6 +24,17 @@ public class MrmPatcherHelper : IDisposable
 
     [FeatureSwitchDefinition("MrmPatcher.IsEnabled")]
     private static bool IsEnabled => AppContext.TryGetSwitch("MrmPatcher.IsEnabled", out bool isEnabled) && isEnabled;
+
+    public MrmPatcherHelper()
+    {
+        if (IsEnabled)
+            using (var stream = Assembly.GetEntryAssembly()!.GetManifestResourceStream("resources.pri")!)
+            {
+                var data = new byte[stream.Length];
+                stream.ReadExactly(data);
+                MrmPatcherMethods.PatchMrm(data, data.Length);
+            }
+    }
 
     public MrmPatcherHelper(byte[] data)
     {
