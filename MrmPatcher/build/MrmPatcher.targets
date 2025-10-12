@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <Target Name="_EmbedPriIntoDll" BeforeTargets="BeforeResGen" Condition="'$(MrmPatcherEnabled)' == 'true' and '$(MrmPatcherEmbedPri)' == 'true'" >
-    <MSBuild Projects="$(ProjectPath)" Targets="Build;GenerateProjectPriFile" Properties="AppxGeneratePriEnabled=true" />
+    <MSBuild Projects="$(ProjectPath)" Targets="Build;GenerateProjectPriFile" Properties="AppxGeneratePriEnabled=true;MrmPatcherEnabled=false;MrmPatcherEmbedPri=false" />
     <ItemGroup>
       <EmbeddedResource Include="$(ProjectPriFullPath)" Type="Non-Resx" WithCulture="false" Condition="Exists('$(ProjectPriFullPath)')" />
     </ItemGroup>
