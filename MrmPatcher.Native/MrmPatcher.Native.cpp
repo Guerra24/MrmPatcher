@@ -6,7 +6,9 @@
 
 #include "pch.h"
 
-long _priSize = 0;
+//#define LOG_CONSOLE
+
+DWORD _priSize = 0;
 void* _priData = nullptr;
 
 static UINT(WINAPI* RealGetDriveTypeW)(LPCWSTR lpRootPathName) = GetDriveTypeW;
@@ -15,7 +17,7 @@ static HANDLE(WINAPI* RealCreateFileW)(LPCWSTR lpFileName, DWORD dwDesiredAccess
 
 UINT WINAPI MyGetDriveTypeW(LPCWSTR lpRootPathName)
 {
-#if DEBUG
+#ifdef LOG_CONSOLE
 	std::wcout << "GetDriveTypeW " << lpRootPathName << std::endl;
 #endif
 	return DRIVE_REMOVABLE;
@@ -25,7 +27,7 @@ BOOL WINAPI MyGetFileAttributesExW(LPCWSTR lpFileName, GET_FILEEX_INFO_LEVELS fI
 {
 	if (fInfoLevelId == GetFileExInfoStandard && std::filesystem::path(lpFileName).filename() == "resources.pri")
 	{
-#if DEBUG
+#ifdef LOG_CONSOLE
 		std::wcout << "GetFileAttributesExW " << lpFileName << std::endl;
 #endif
 		auto info = reinterpret_cast<LPWIN32_FILE_ATTRIBUTE_DATA>(lpFileInformation);
@@ -40,7 +42,7 @@ HANDLE WINAPI MyCreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwS
 {
 	if (std::filesystem::path(lpFileName).filename() == "resources.pri")
 	{
-#if DEBUG
+#ifdef LOG_CONSOLE
 		std::wcout << "CreateFileW Redirect to pipe" << std::endl;
 #endif
 		HANDLE hReadPipe, hWritePipe;
@@ -61,9 +63,9 @@ HANDLE WINAPI MyCreateFileW(LPCWSTR lpFileName, DWORD dwDesiredAccess, DWORD dwS
 	return RealCreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 
-extern "C" void __declspec(dllexport) PatchMrm(BYTE* data, long length)
+extern "C" void __declspec(dllexport) PatchMrm(BYTE* data, DWORD length)
 {
-#if DEBUG
+#ifdef LOG_CONSOLE
 	AllocConsole();
 
 	// std::cout, std::clog, std::cerr, std::cin

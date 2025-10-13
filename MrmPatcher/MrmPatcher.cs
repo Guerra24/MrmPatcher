@@ -13,10 +13,10 @@ namespace MrmPatcher;
 internal static partial class MrmPatcherMethods
 {
     [LibraryImport("MrmPatcher", EntryPoint = "PatchMrm")]
-    public static partial void PatchMrm(byte[] data, long length);
+    internal static partial void PatchMrm(byte[] data, uint length);
 
     [LibraryImport("MrmPatcher", EntryPoint = "UnpatchMrm")]
-    public static partial void UnpatchMrm();
+    internal static partial void UnpatchMrm();
 }
 
 public class MrmPatcherHelper : IDisposable
@@ -32,14 +32,14 @@ public class MrmPatcherHelper : IDisposable
             {
                 var data = new byte[stream.Length];
                 stream.ReadExactly(data);
-                MrmPatcherMethods.PatchMrm(data, data.Length);
+                MrmPatcherMethods.PatchMrm(data, (uint)data.Length);
             }
     }
 
     public MrmPatcherHelper(byte[] data)
     {
         if (IsEnabled)
-            MrmPatcherMethods.PatchMrm(data, data.LongLength);
+            MrmPatcherMethods.PatchMrm(data, (uint)data.Length);
     }
 
     public MrmPatcherHelper(Stream stream)
@@ -48,7 +48,7 @@ public class MrmPatcherHelper : IDisposable
         {
             var data = new byte[stream.Length];
             stream.ReadExactly(data);
-            MrmPatcherMethods.PatchMrm(data, data.Length);
+            MrmPatcherMethods.PatchMrm(data, (uint)data.Length);
         }
     }
 
