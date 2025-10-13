@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <MrmPatcherEnabled>false</MrmPatcherEnabled>
-    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true'">true</MrmPatcherEnabled>
+    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true' and ('$(OutputType)' == 'Exe' or '$(OutputType)' == 'WinExe')">true</MrmPatcherEnabled>
     <MrmPatcherEmbedPri Condition="'$(MrmPatcherEmbedPri)' == ''">false</MrmPatcherEmbedPri>
   </PropertyGroup>
 
