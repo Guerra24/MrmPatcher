@@ -1,23 +1,24 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <MrmPatcherEnabled>false</MrmPatcherEnabled>
-    <MrmPatcherEnabled Condition="('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true' and ('$(OutputType)' == 'Exe' or '$(OutputType)' == 'WinExe')">true</MrmPatcherEnabled>
+    <MrmPatcherEnabled Condition="'$(MrmPatcherEnabled)' == ''">false</MrmPatcherEnabled>
     <MrmPatcherEmbedPri Condition="'$(MrmPatcherEmbedPri)' == ''">false</MrmPatcherEmbedPri>
+    <MrmPatcherLinkLib>false</MrmPatcherLinkLib>
+    <MrmPatcherLinkLib Condition="'$(MrmPatcherEnabled)' == 'true' and ('$(RuntimeIdentifier)' == 'win-x64' or '$(RuntimeIdentifier)' == 'win-arm64') and '$(_IsPublishing)' != '' and '$(PublishAot)' == 'true' and ('$(OutputType)' == 'Exe' or '$(OutputType)' == 'WinExe')">true</MrmPatcherLinkLib>
   </PropertyGroup>
 
   <ItemGroup>
-    <RuntimeHostConfigurationOption Include="MrmPatcher.IsEnabled" Value="$(MrmPatcherEnabled)" Trim="true" />
+    <RuntimeHostConfigurationOption Include="MrmPatcher.IsEnabled" Value="$(MrmPatcherLinkLib)" Trim="true" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(MrmPatcherEnabled)' == 'true'">
+  <ItemGroup Condition="'$(MrmPatcherLinkLib)' == 'true'">
     <DirectPInvoke Include="MrmPatcher" />
     <NativeLibrary Include="MrmPatcher.lib" />
     <NativeLibrary Include="detours.lib" />
     <LinkerArg Include='/LIBPATH:"$(MSBuildThisFileDirectory)..\static-lib\$(RuntimeIdentifier)"' />
   </ItemGroup>
 
-  <Target Name="_EmbedPriIntoDll" BeforeTargets="BeforeResGen" Condition="'$(MrmPatcherEnabled)' == 'true' and '$(MrmPatcherEmbedPri)' == 'true'" >
+  <Target Name="_EmbedPriIntoDll" BeforeTargets="BeforeResGen" Condition="'$(MrmPatcherLinkLib)' == 'true' and '$(MrmPatcherEmbedPri)' == 'true'" >
     <MSBuild Projects="$(ProjectPath)" Targets="Build;GenerateProjectPriFile" Properties="AppxGeneratePriEnabled=true;MrmPatcherEnabled=false;MrmPatcherEmbedPri=false" />
     <ItemGroup>
       <EmbeddedResource Include="$(ProjectPriFullPath)" Type="Non-Resx" WithCulture="false" Condition="Exists('$(ProjectPriFullPath)')" />
